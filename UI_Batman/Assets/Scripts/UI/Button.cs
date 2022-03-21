@@ -24,10 +24,11 @@ public class Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void ShrinkBar()
     {
         ButtonImg.rectTransform.DOSizeDelta(new Vector2(100, 100), 0.5f);
+    
     }
     public void GrowBar()
     {
-        ButtonImg.rectTransform.DOSizeDelta(new Vector2(100, 100), 0.7f);
+        ButtonImg.rectTransform.DOSizeDelta(new Vector2(780, 100), 0.5f);
     }
 
 }
