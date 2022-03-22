@@ -9,6 +9,7 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
+    public Image Logo;
     public GameObject MainMenu;
     public GameObject OptionMenu;
     public GameObject LeaderBoard;
@@ -18,6 +19,8 @@ public class MenuManager : MonoBehaviour
     private TextMeshProUGUI[] MainMenuTexts;
     private TextMeshProUGUI[] OptionMenuTexts;
     private TextMeshProUGUI[] LeaderMenuTexts;
+
+    private bool ScenePassed=false;
 
 
 
@@ -30,7 +33,20 @@ public class MenuManager : MonoBehaviour
        MainMenuTexts= MainMenu.GetComponentsInChildren<TextMeshProUGUI>();
        OptionMenuTexts= OptionMenu.GetComponentsInChildren<TextMeshProUGUI>();
        LeaderMenuTexts= LeaderBoard.GetComponentsInChildren<TextMeshProUGUI>();
+
+        
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown("space") && !ScenePassed)
+        {
+            Logo.gameObject.SetActive(true);
+            StartCoroutine(ShowMain());
+            ScenePassed = true;
+        }
+    }
+
     public void ToOptions()
     {
         foreach (var item in MainMenuButtons)
@@ -79,11 +95,11 @@ public class MenuManager : MonoBehaviour
         }
     }    
     
-    void ShowHideText(TextMeshProUGUI[] Texts)
+    void ShowHideText(TextMeshProUGUI[] Texts, bool bol)
     {
         foreach (var item in Texts)
         {
-            item.enabled = !item.enabled;
+            item.enabled = bol;
         }
     }    
 
@@ -109,14 +125,14 @@ public class MenuManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        ShowHideText(LeaderMenuTexts);
+        ShowHideText(LeaderMenuTexts,true);
     }
     
     IEnumerator ShowMain()
     {
-
-        ShowHideText(OptionMenuTexts);
-        ShowHideText(LeaderMenuTexts);
+        
+        ShowHideText(OptionMenuTexts,false);
+        ShowHideText(LeaderMenuTexts,false);
 
         yield return new WaitForSeconds(0.5f);
 
@@ -137,14 +153,16 @@ public class MenuManager : MonoBehaviour
 
         //MainMenu.transform.position = (new Vector3(-180, 0, 0));
         MainMenu.transform.DOLocalMoveX(0, 0.5f);
+        Logo.DOFade(1, 2f);
 
         yield return new WaitForSeconds(0.5f);
 
         GrowButtons(MainMenuButtons);
+        
 
         yield return new WaitForSeconds(0.5f);
 
-        ShowHideText(MainMenuTexts);
+        ShowHideText(MainMenuTexts,true);
 
     }
     IEnumerator ShowOption()
@@ -163,12 +181,14 @@ public class MenuManager : MonoBehaviour
         OptionMenu.transform.DOLocalMoveX(0, 0.5f);
 
         yield return new WaitForSeconds(0.5f);
-
+        
+        
         GrowButtons(OptionMenuButtons);
+        
 
         yield return new WaitForSeconds(0.5f);
 
-        ShowHideText(OptionMenuTexts);
+        ShowHideText(OptionMenuTexts,true);
     }
 
 

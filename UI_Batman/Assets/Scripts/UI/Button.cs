@@ -8,6 +8,7 @@ using DG.Tweening;
 public class Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image ButtonImg;
+    public float MaxSize=780;
     public void OnPointerEnter(PointerEventData eventData)
     {
         ButtonImg.DOKill();
@@ -28,7 +29,7 @@ public class Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void GrowBar()
     {
-        ButtonImg.rectTransform.DOSizeDelta(new Vector2(780, 100), 0.5f);
+        ButtonImg.rectTransform.DOSizeDelta(new Vector2(MaxSize, 100), 0.5f);
     }
 
 }
